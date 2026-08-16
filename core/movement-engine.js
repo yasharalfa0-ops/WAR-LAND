@@ -1,0 +1,10 @@
+// WAR LAND - strategic movement engine
+(function(){
+  const dist=(a,b)=>Math.hypot((a.x-b.x)*1.05,a.y-b.y);
+  function createArmy(id,owner,name,x,y,opts={}){return {id,owner,name,x,y,origin:{x,y},destination:null,path:[],pathIndex:0,movementPoints:opts.movementPoints||3,maxMovementPoints:opts.movementPoints||3,speed:opts.speed||1,supply:opts.supply??100,morale:opts.morale??100,status:'ready',strength:opts.strength||10000};}
+  function buildPath(army,target){const steps=Math.max(1,Math.ceil(dist(army,target)/55));const path=[];for(let i=1;i<=steps;i++)path.push({x:army.x+(target.x-army.x)*i/steps,y:army.y+(target.y-army.y)*i/steps});return path;}
+  function orderArmyMove(state,armyId,target){const army=state.armies[armyId];if(!army||!target)return false;army.destination={x:target.x,y:target.y,name:target.name||null,kind:target.kind||null};army.path=buildPath(army,target);army.pathIndex=0;army.status='moving';army.movementPoints=army.maxMovementPoints;state.map.selectedArmy=armyId;logGameEvent(state,'movement','دستور حرکت صادر شد',{armyId,target:army.destination});return true;}
+  function moveArmyStep(state,army){if(!army||army.status!=='moving'||!army.path.length)return false;if(army.movementPoints<=0){army.status='waiting';return false;}const next=army.path[army.pathIndex];army.x=next.x;army.y=next.y;army.pathIndex++;army.movementPoints--;army.supply=Math.max(0,army.supply-1);if(army.pathIndex>=army.path.length){army.status='arrived';army.destination=null;army.path=[];army.pathIndex=0;logGameEvent(state,'movement','ارتش به مقصد رسید',{armyId:army.id});}return true;}
+  function refreshArmyMovement(state){Object.values(state.armies||{}).forEach(a=>{if(a.status==='waiting'||a.status==='ready'){a.movementPoints=a.maxMovementPoints;a.status=a.status==='waiting'?'ready':a.status;}});Object.values(state.armies||{}).forEach(a=>moveArmyStep(state,a));return state;}
+  window.WARLAND_MOVEMENT={createArmy,buildPath,orderArmyMove,moveArmyStep,refreshArmyMovement};
+})();
