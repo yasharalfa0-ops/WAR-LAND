@@ -1,0 +1,32 @@
+name: WAR LAND - Jessi backend check
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  check-jessi-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: npm install
+      - name: Validate server files
+        run: node --check server.js
+      - name: Validate Jessi role
+        run: node --check data/jessi-ai-role.js
+      - name: Check API key configuration
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          if [ -z "$OPENAI_API_KEY" ]; then
+            echo "OPENAI_API_KEY is not configured as a GitHub Actions secret."
+            exit 1
+          fi
+          echo "OPENAI_API_KEY secret is configured."
