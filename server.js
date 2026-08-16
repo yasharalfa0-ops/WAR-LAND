@@ -4,7 +4,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const PORT = Number(process.env.PORT || 3000);
+const PORT = Number(process.env.PORT || 10000);
+const HOST = '0.0.0.0';
 const MODEL = process.env.OPENAI_MODEL || 'gpt-5.6';
 const API_KEY = process.env.OPENAI_API_KEY;
 
@@ -36,6 +37,7 @@ async function jessi(req, res) {
 const server=http.createServer(async (req,res)=>{
   if(req.method==='OPTIONS') return send(res,204,'','text/plain');
   if(req.url==='/api/jessi' && req.method==='POST') return jessi(req,res);
+  if(req.url==='/health') return send(res,200,{status:'ok',service:'WAR LAND'});
   const requested=req.url==='/'?'/index.html':req.url.split('?')[0];
   const file=path.join(__dirname,requested);
   if(!file.startsWith(__dirname) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) return send(res,404,{error:'Not found'});
@@ -43,4 +45,4 @@ const server=http.createServer(async (req,res)=>{
   const types={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json'};
   send(res,200,fs.readFileSync(file),types[ext]||'application/octet-stream');
 });
-server.listen(PORT,()=>console.log(`WAR LAND server running on ${PORT}`));
+server.listen(PORT,HOST,()=>console.log(`WAR LAND server running on ${HOST}:${PORT}`));
