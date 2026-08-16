@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 800" role="img" aria-label="WAR LAND 1939 strategic world map">
+  <defs>
+    <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse"><path d="M80 0H0V80" fill="none" stroke="#31506b" stroke-width="1" opacity=".22"/></pattern>
+    <filter id="shadow"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity=".35"/></filter>
+  </defs>
+  <rect width="1600" height="800" fill="#17344b"/>
+  <rect width="1600" height="800" fill="url(#grid)"/>
+  <!-- Stylized strategic landmasses. Geography will later be replaced by the full 1939 vector dataset. -->
+  <g stroke="#18242d" stroke-width="3" stroke-linejoin="round" filter="url(#shadow)">
+    <path id="north-america" d="M100 165 L180 105 300 92 390 145 420 225 350 255 315 315 235 300 180 350 125 315 150 260 95 220Z" fill="#657f55"/>
+    <path id="south-america" d="M385 355 L470 365 520 430 505 510 470 570 430 650 390 690 350 610 365 530 340 455Z" fill="#718a5d"/>
+    <path id="europe" d="M690 175 L760 145 850 160 900 215 850 270 780 255 735 290 680 245Z" fill="#7e8f62"/>
+    <path id="africa" d="M700 310 L810 290 900 335 925 430 880 535 810 650 750 600 720 510 680 430Z" fill="#8d8158"/>
+    <path id="asia" d="M875 150 L1010 105 1160 125 1290 185 1390 245 1340 320 1230 335 1150 300 1050 325 965 280 900 245Z" fill="#77865a"/>
+    <path id="india" d="M1010 325 L1100 315 1140 390 1090 465 1040 420Z" fill="#8d8158"/>
+    <path id="australia" d="M1190 560 L1320 535 1430 575 1400 650 1290 680 1195 645 1165 600Z" fill="#857957"/>
+    <path id="japan" d="M1390 300 l30 -20 20 35 -25 40 -25 -15Z" fill="#667d58"/>
+  </g>
+  <!-- strategic sea lanes -->
+  <g fill="none" stroke="#8eb9d0" stroke-width="3" stroke-dasharray="10 10" opacity=".6">
+    <path d="M300 420 C520 350 700 390 920 420 S1250 390 1390 350"/>
+    <path d="M780 620 C930 570 1050 590 1210 610"/>
+  </g>
+  <!-- permanent map-visible assets -->
+  <g font-family="Arial, sans-serif" font-size="22" text-anchor="middle">
+    <g id="ports" fill="#f4d35e" stroke="#332c16" stroke-width="3">
+      <path d="M785 205 l14 0 0 25 -14 0Z"/><circle cx="792" cy="200" r="9"/>
+      <path d="M735 225 l14 0 0 25 -14 0Z"/><circle cx="742" cy="220" r="9"/>
+      <path d="M880 365 l14 0 0 25 -14 0Z"/><circle cx="887" cy="360" r="9"/>
+      <path d="M1280 330 l14 0 0 25 -14 0Z"/><circle cx="1287" cy="325" r="9"/>
+      <path d="M1395 315 l14 0 0 25 -14 0Z"/><circle cx="1402" cy="310" r="9"/>
+      <path d="M270 205 l14 0 0 25 -14 0Z"/><circle cx="277" cy="200" r="9"/>
+    </g>
+    <g id="oil" fill="#1b1b1b" stroke="#f6b73c" stroke-width="3">
+      <circle cx="930" cy="220" r="13"/><circle cx="1015" cy="400" r="13"/><circle cx="805" cy="385" r="13"/>
+      <circle cx="1100" cy="430" r="13"/>
+    </g>
+    <g id="refineries" fill="#c65f32" stroke="#f7d28a" stroke-width="3">
+      <rect x="1000" y="420" width="25" height="25" rx="3"/><rect x="790" y="400" width="25" height="25" rx="3"/><rect x="920" y="225" width="25" height="25" rx="3"/>
+    </g>
+    <g id="air-defense" fill="#d94f4f" stroke="#fff" stroke-width="2">
+      <path d="M780 190 l12 -20 12 20 -7 0 0 18 -10 0 0 -18Z"/>
+      <path d="M820 205 l12 -20 12 20 -7 0 0 18 -10 0 0 -18Z"/>
+      <path d="M850 190 l12 -20 12 20 -7 0 0 18 -10 0 0 -18Z"/>
+    </g>
+    <g id="coastal-defense" fill="#9b6b42" stroke="#fff" stroke-width="2">
+      <path d="M1370 330 l25 -10 0 25 -25 0Z"/><path d="M1260 345 l25 -10 0 25 -25 0Z"/>
+    </g>
+  </g>
+  <g fill="#dce8ee" font-family="Arial, sans-serif" font-size="18" opacity=".85">
+    <text x="705" y="95">WAR LAND • WORLD 1939</text>
+    <text x="705" y="120" font-size="13">Strategic map prototype</text>
+  </g>
+</svg>
