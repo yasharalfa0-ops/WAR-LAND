@@ -39,8 +39,9 @@ const server=http.createServer(async (req,res)=>{
   if(req.url==='/api/jessi' && req.method==='POST') return jessi(req,res);
   if(req.url==='/health') return send(res,200,{status:'ok',service:'WAR LAND'});
   const requested=req.url==='/'?'/index.html':req.url.split('?')[0];
-  const file=path.join(__dirname,requested);
-  if(!file.startsWith(__dirname) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) return send(res,404,{error:'Not found'});
+  const file=path.resolve(__dirname,'.'+requested);
+  const root=path.resolve(__dirname);
+  if(!file.startsWith(root + path.sep) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) return send(res,404,{error:'Not found'});
   const ext=path.extname(file);
   const types={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json'};
   send(res,200,fs.readFileSync(file),types[ext]||'application/octet-stream');
